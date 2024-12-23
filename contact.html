@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .message-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .message-container h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Messages</h1>
+    <div id="messages"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messagesContainer = document.getElementById('messages');
+            const messageData = JSON.parse(localStorage.getItem('formData'));
+
+            if (messageData) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message-container';
+                messageDiv.innerHTML = `
+                    <h2>${messageData.name}</h2>
+                    <p><strong>Email:</strong> ${messageData.email}</p>
+                    <p><strong>Message:</strong> ${messageData.message}</p>
+                `;
+                messagesContainer.appendChild(messageDiv);
+            } else {
+                messagesContainer.innerHTML = '<p>No messages found.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaging Application</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="post.css">
+
+    <style>
+       
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">MessagingApp</a>
+            <a href="index.html">Home</a>
+            <a href="post.html">Messages</a>
+            <a href="#">Contacts</a>
+            <a href="#">Profile</a>
+            <a href="#" class="right">Logout</a>
+        </div>
+    </header>
+    <div class="container">
+        <ul class="message-list" id="messageList"></ul>
+        <form class="message-form" id="messageForm">
+            <input type="text" class="message-input" id="messageInput" placeholder="Type a message" required>
+            <button type="submit" class="message-button">Send</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageList = document.getElementById('messageList');
+            const messageForm = document.getElementById('messageForm');
+            const messageInput = document.getElementById('messageInput');
+
+            function loadMessages() {
+                const messages = JSON.parse(localStorage.getItem('messages')) || [];
+                messageList.innerHTML = '';
+                Array.from(messages).forEach(message => {
+                    const li = document.createElement('li');
+                    li.className = 'message-item';
+                    li.textContent = message;
+                    messageList.appendChild(li);
+                });
+            }
+
+            function saveMessage(message) {
+                const messages = JSON.parse(localStorage.getItem('messages')) || [];
+                messages.push(message);
+                localStorage.setItem('messages', JSON.stringify(messages));
+                loadMessages();
+            }
+
+            messageForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const message = messageInput.value.trim();
+                if (message) {
+                    saveMessage(message);
+                    messageInput.value = '';
+                }
+            });
+
+            loadMessages();
+        });
+    </script>
+</body>
+</html>

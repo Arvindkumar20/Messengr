@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="hero.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">MessagingApp</a>
+            <a href="#">Home</a>
+            <a href="post.html">Messages</a>
+            <a href="contact.html">Contacts</a>
+            <a href="#">Profile</a>
+            <a href="#" class="right">Logout</a>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Welcome to ChatApp</h1>
+            <p>Connect with your friends and family instantly.</p>
+            <button>Get Started</button>
+        </section>
+    </main>
+    <h1 class="message-form h2">Send a Message</h1>
+    <form id="messageForm" class="message-form">
+        <label for="name" >Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="email" >Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="message" >Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+        
+        <button type="submit">Send</button>
+    </form>
+
+    <script src="script.js">
+        // document.getElementById('messageForm').addEventListener('submit', function(event) {
+        //     event.preventDefault();
+        //     alert('Message sent!');
+        // });
+    </script>
+</body>
+</html>
