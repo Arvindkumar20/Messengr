@@ -1,30 +1,33 @@
-document.getElementById('messageForm').addEventListener('submit', function(event) {
+document.getElementById('messageForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    
     // Get form values
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
+
     // Create an object to store the data
     const formData = {
-        name: name,
-        email: email,
-        message: message
+        name: name.value,
+        email: email.value,
+        message: message.value
     };
-    let contacts=localStorage.getItem('formData');
-    console.log(contacts);
-    if(contacts==null){
-        data=[];
+    let data = JSON.parse(localStorage.getItem('formData'));
+    //[{name: 'John', email: 'john@doe', message: 'Hello!'},{name: 'Jane', email: 'jane@doe', message: 'Hi!'},{name: 'John', email: 'john@doe', message: 'Hello!'}]
+    if (data == null) {
+        localStorage.setItem('formData', JSON.stringify([formData]));
+        document.getElementById('result').innerHTML = 'Data saved successfully!';
+        email.value='';
+        name.value='';
+        message.value='';
+
     }
-    else{
-        data=JSON.parse(contacts);
+    else {
+        data.push(formData);
+        localStorage.setItem('formData', JSON.stringify(data));
+        document.getElementById('result').innerHTML = 'Data saved successfully!';
+        email.value='';
+        name.value='';
+        message.value='';
     }
-    data.push(formData);
-    localStorage.setItem('formData', JSON.stringify(data));
-    console.log(data);
-    // Display the data in the console
-    console.log(formData);
-    });
-// write code for fech data from localstorage 
-// and display it in the page   
+});
+

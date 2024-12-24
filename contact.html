@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+
         .message-container {
             border: 1px solid #ccc;
             padding: 20px;
@@ -16,33 +18,66 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+
         .message-container h2 {
             margin-top: 0;
         }
     </style>
+    <link rel="stylesheet" href="navbar.css">
 </head>
-<body>
-    <h1>Contact Messages</h1>
-    <div id="messages"></div>
 
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">MessagingApp</a>
+            <a href="index.html">Home</a>
+            <a href="post.html">Messages</a>
+            <a href="contact.html">Contacts</a>
+            <a href="#">Profile</a>
+            <a href="#" class="right">Logout</a>
+        </div>
+    </header>
+    <h1>Contact Messages</h1>
+    <div id="messages">
+
+    </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        const deleteMessage = (email) => {
+            const messageData = JSON.parse(localStorage.getItem('formData'));
+            const filteredData = messageData.filter((data) => data.email !== email);
+            localStorage.setItem('formData', JSON.stringify(filteredData));
+            location.reload();
+saveData();
+        }
+   
+        const saveData=()=>{document.addEventListener('DOMContentLoaded', function () {
             const messagesContainer = document.getElementById('messages');
             const messageData = JSON.parse(localStorage.getItem('formData'));
-
             if (messageData) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message-container';
-                messageDiv.innerHTML = `
-                    <h2>${messageData.name}</h2>
-                    <p><strong>Email:</strong> ${messageData.email}</p>
-                    <p><strong>Message:</strong> ${messageData.message}</p>
-                `;
-                messagesContainer.appendChild(messageDiv);
-            } else {
+                for (let i = messageData.length - 1; i >= 0; i--) {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message-container';
+                    messageDiv.innerHTML = `
+                       <section>
+                         <h2>${messageData[i].name}</h2>
+                        <p><strong>Email:</strong> ${messageData[i].email}</p>
+                        <p><strong>Message:</strong> ${messageData[i].message}</p>
+                        </section>
+                        <section>
+                        <button onclick="deleteMessage(${messageData[i].email})"> Delete</button >                            
+                            </section >
+                    `;
+                    messagesContainer.appendChild(messageDiv);
+                }
+
+                           } else {
                 messagesContainer.innerHTML = '<p>No messages found.</p>';
             }
         });
+    }
+
+saveData();
     </script>
 </body>
+
 </html>

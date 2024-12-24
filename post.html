@@ -17,7 +17,7 @@
             <a href="index.html" class="logo">MessagingApp</a>
             <a href="index.html">Home</a>
             <a href="post.html">Messages</a>
-            <a href="#">Contacts</a>
+            <a href="contact.html">Contacts</a>
             <a href="#">Profile</a>
             <a href="#" class="right">Logout</a>
         </div>
@@ -30,41 +30,6 @@
         </form>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const messageList = document.getElementById('messageList');
-            const messageForm = document.getElementById('messageForm');
-            const messageInput = document.getElementById('messageInput');
-
-            function loadMessages() {
-                const messages = JSON.parse(localStorage.getItem('messages')) || [];
-                messageList.innerHTML = '';
-                Array.from(messages).forEach(message => {
-                    const li = document.createElement('li');
-                    li.className = 'message-item';
-                    li.textContent = message;
-                    messageList.appendChild(li);
-                });
-            }
-
-            function saveMessage(message) {
-                const messages = JSON.parse(localStorage.getItem('messages')) || [];
-                messages.push(message);
-                localStorage.setItem('messages', JSON.stringify(messages));
-                loadMessages();
-            }
-
-            messageForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const message = messageInput.value.trim();
-                if (message) {
-                    saveMessage(message);
-                    messageInput.value = '';
-                }
-            });
-
-            loadMessages();
-        });
-    </script>
+ <script src="post.js"></script>
 </body>
 </html>
