@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Messages</title>
+    <link rel="stylesheet" href="post.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,7 +40,6 @@
     </header>
     <h1>Contact Messages</h1>
     <div id="messages">
-
     </div>
     <script>
         const deleteMessage = (email) => {
@@ -47,36 +47,43 @@
             const filteredData = messageData.filter((data) => data.email !== email);
             localStorage.setItem('formData', JSON.stringify(filteredData));
             location.reload();
-saveData();
+            saveData();
         }
-   
-        const saveData=()=>{document.addEventListener('DOMContentLoaded', function () {
-            const messagesContainer = document.getElementById('messages');
-            const messageData = JSON.parse(localStorage.getItem('formData'));
-            if (messageData) {
-                for (let i = messageData.length - 1; i >= 0; i--) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message-container';
-                    messageDiv.innerHTML = `
-                       <section>
-                         <h2>${messageData[i].name}</h2>
-                        <p><strong>Email:</strong> ${messageData[i].email}</p>
-                        <p><strong>Message:</strong> ${messageData[i].message}</p>
-                        </section>
-                        <section>
-                        <button onclick="deleteMessage(${messageData[i].email})"> Delete</button >                            
-                            </section >
-                    `;
-                    messagesContainer.appendChild(messageDiv);
+        const saveData = () => {
+            document.addEventListener('DOMContentLoaded', function () {
+                const messagesContainer = document.getElementById('messages');
+                const messageData = JSON.parse(localStorage.getItem('formData'));
+                if (messageData) {
+                    for (let i = messageData.length - 1; i >= 0; i--) {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.className = 'message-container';
+                        const section = document.createElement('section');
+                        const h2 = document.createElement('h2');
+                        h2.textContent = messageData[i].name;
+                        section.appendChild(h2);
+                        const emailP = document.createElement('p');
+                        emailP.innerHTML = `<strong>Email:</strong> ${messageData[i].email}`;
+                        section.appendChild(emailP);
+                        const messageP = document.createElement('p');
+                        messageP.innerHTML = `<strong>Message:</strong> ${messageData[i].message}`;
+                        section.appendChild(messageP);
+                        messageDiv.appendChild(section);
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.className = 'delete-button';
+                        deleteButton.onclick = function () {
+                            deleteMessage(messageData[i].email);
+                        };
+                        messageDiv.appendChild(deleteButton);
+                        messagesContainer.appendChild(messageDiv);
+                    }
                 }
-
-                           } else {
-                messagesContainer.innerHTML = '<p>No messages found.</p>';
-            }
-        });
-    }
-
-saveData();
+                 else {
+                    messagesContainer.innerHTML = '<p>No messages found.</p>';
+                }
+            });
+        }
+        saveData();
     </script>
 </body>
 
