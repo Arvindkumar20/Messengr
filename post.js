@@ -2,32 +2,35 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageList = document.getElementById('messageList');
     const messageForm = document.getElementById('messageForm');
     const messageInput = document.getElementById('messageInput');
-
-    const loadMessages = () => {
-        const messages = JSON.parse(localStorage.getItem('messages')) || [];
-        messageList.innerHTML = '';
-
-        messages.forEach((message, index) => {
-            const li = document.createElement('li');
-            li.className = 'message-item';
-
-            // Using textContent to prevent XSS
-            const messageText = document.createElement('p');
-            messageText.className = 'message-text';
-            messageText.textContent = message;
-
-            // Create Delete button
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.className = 'delete-button';
-            deleteButton.onclick = () => deleteMessage(index);
-
-            // Append message text and button to list item
-            li.appendChild(messageText);
-            li.appendChild(deleteButton);
-
-            messageList.appendChild(li);
-        });
+    const loadMessages = async() => {
+        try {
+            const messages =await JSON.parse(localStorage.getItem('messages')) || [];
+             messageList.innerHTML = '';
+             messages.forEach((message, index) => {
+                 const li = document.createElement('li');
+                 li.className = 'message-item';
+     
+                 // Using textContent to prevent XSS
+                 const messageText = document.createElement('p');
+                 messageText.className = 'message-text';
+                 messageText.textContent = message;
+     
+                 // Create Delete button
+                 const deleteButton = document.createElement('button');
+                 deleteButton.textContent = 'Delete';
+                 deleteButton.className = 'delete-button';
+                 deleteButton.onclick = () => deleteMessage(index);
+     
+                 // Append message text and button to list item
+                 li.appendChild(messageText);
+                 li.appendChild(deleteButton);
+     
+                 messageList.appendChild(li);
+             });
+        } catch (error) {
+            console.log(error);
+        }
+       
     };
 
     // login logout

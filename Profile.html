@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            margin: 40px auto;
+            background-color: aqua;
+        }
+.user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid red;
+    margin: 20px auto;
+    padding: 10px 10px;
+    border-radius: 5px;
+}
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Profile</h1>
+        <div class="container2">
+            <div id="userCard">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const userCard = document.getElementById('userCard');
+        let data=JSON.parse(localStorage.getItem('formData'));
+        if(data){
+            data.forEach(user => {
+                // userCard.innerHTML=`
+                // <h2>Name : ${user.name}<h2>
+                //     <h3>Email : ${user.email}</h3>
+                //     <h3>Message : ${user.message}</h3>
+                // `
+                let div=document.createElement('div');
+                div.classList='user';
+                let h2=document.createElement('h2');
+                h2.textContent='Name : '+user.name;
+                div.appendChild(h2);
+                let emailH3=document.createElement('h3');
+                emailH3.textContent='Email : ' +user.email;
+                div.append(emailH3);
+                let mesaageH3=document.createElement('h3');
+                mesaageH3.textContent='Message : ' + user.message
+                div.appendChild(mesaageH3);
+
+                userCard.appendChild(div);
+
+            });
+        }
+        else{
+            userCard.innerHTML='<h1>Data not found</h1>';
+        }
+    </script>
+</body>
+
+</html>

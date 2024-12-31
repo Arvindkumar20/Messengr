@@ -42,17 +42,17 @@
     <div id="messages">
     </div>
     <script>
-        const deleteMessage = (email) => {
-            const messageData = JSON.parse(localStorage.getItem('formData'));
+        const deleteMessage =async (email) => {
+            const messageData = await JSON.parse(localStorage.getItem('formData'));
             const filteredData = messageData.filter((data) => data.email !== email);
             localStorage.setItem('formData', JSON.stringify(filteredData));
             location.reload();
             saveData();
         }
         const saveData = () => {
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', async function () {
                 const messagesContainer = document.getElementById('messages');
-                const messageData = JSON.parse(localStorage.getItem('formData'));
+                const messageData =await JSON.parse(localStorage.getItem('formData'));
                 if (messageData) {
                     for (let i = messageData.length - 1; i >= 0; i--) {
                         const messageDiv = document.createElement('div');

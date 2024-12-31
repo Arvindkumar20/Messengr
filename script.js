@@ -1,4 +1,4 @@
-document.getElementById('messageForm').addEventListener('submit', function (event) {
+document.getElementById('messageForm').addEventListener('submit', async function (event) {
     event.preventDefault();
     // Get form values
     const name = document.getElementById('name');
@@ -11,7 +11,7 @@ document.getElementById('messageForm').addEventListener('submit', function (even
         email: email.value,
         message: message.value
     };
-    let data = JSON.parse(localStorage.getItem('formData'));
+    let data =await JSON.parse(localStorage.getItem('formData'));
     //[{name: 'John', email: 'john@doe', message: 'Hello!'},{name: 'Jane', email: 'jane@doe', message: 'Hi!'},{name: 'John', email: 'john@doe', message: 'Hello!'}]
     if (data == null) {
         localStorage.setItem('formData', JSON.stringify([formData]));
@@ -22,7 +22,7 @@ document.getElementById('messageForm').addEventListener('submit', function (even
 
     }
     else {
-        data.push(formData);
+        await data.push(formData);
         localStorage.setItem('formData', JSON.stringify(data));
         document.getElementById('result').innerHTML = 'Data saved successfully!';
         email.value='';
